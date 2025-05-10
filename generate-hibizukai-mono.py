@@ -44,6 +44,7 @@ FONT_ASCENT  = EM_ASCENT  + 170    # BIZ UDPGothic = 1802, JetBrains Mono = 1020
 FONT_DESCENT = EM_DESCENT + 160    # BIZ UDPGothic =  246, JetBrains Mono =  300, Nerd Fonts =  410
 FONT_WIDTH = 2000
 
+NERD_X_WIDTH = 1980
 NERD_Y_OFFSET = 164
 
 ITALIC_ANGLE = 9
@@ -296,8 +297,12 @@ def add_nerd_font_glyphs(font: fontforge.font):
         if nerd_glyph.glyphname in glyph_names:
             nerd_glyph.glyphname = f"{nerd_glyph.glyphname}-{nerd_glyph.encoding}"
         glyph_names.add(nerd_glyph.glyphname)
-        # グリフの縦位置を直す
-        nerd_glyph.transform(psMat.translate(0, NERD_Y_OFFSET))
+        # グリフの縮小、縦位置の修正
+        trans_mat = psMat.compose(
+            psMat.scale(NERD_X_WIDTH / FONT_WIDTH),
+            psMat.translate((FONT_WIDTH - NERD_X_WIDTH) / 2, NERD_Y_OFFSET)
+        )
+        nerd_glyph.transform(trans_mat)
 
     common.merge_fonts(font, nerd_font)
 
