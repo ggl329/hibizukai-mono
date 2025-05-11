@@ -81,8 +81,8 @@ def generate_font(for_bold: bool, for_italic: bool, version: str) -> None:
     clear_jpdoc_symbols(en_font)
     clear_duplicate_circled_letter(en_font, ja_font)
     clear_duplicate_glyphs(ja_font, en_font)
-    normalize_width(en_font, en_font[0x30].width, FONT_WIDTH / 2)
-    normalize_width(ja_font, (EM_ASCENT + EM_DESCENT) / 2, FONT_WIDTH / 2, x_only=False)
+    normalize_width(en_font, en_font[0x30].width, FONT_WIDTH // 2)
+    normalize_width(ja_font, (EM_ASCENT + EM_DESCENT) // 2, FONT_WIDTH // 2, x_only=False)
 
     if for_italic:
         common.italicize(ja_font, ITALIC_ANGLE)
@@ -273,19 +273,19 @@ def clear_duplicate_glyphs(font1: fontforge.font, font2: fontforge.font) -> None
 
 
 def normalize_width(font: fontforge.font, pre_halfwidth: int, post_halfwidth: int, x_only: bool = True) -> None:
-    mag = float(post_halfwidth) / pre_halfwidth
+    mag = post_halfwidth / pre_halfwidth
     trans_mat = psMat.scale(mag, 1.0) if x_only else psMat.scale(mag)
     for glyph in font.glyphs():
         if glyph.width > 0:
-            coeff = round(float(glyph.width) / pre_halfwidth)
+            coeff = round(glyph.width / pre_halfwidth)
             glyph.transform(trans_mat)
-            glyph.width = round(post_halfwidth * coeff)
+            glyph.width = post_halfwidth * coeff
 
 
 def add_nerd_font_glyphs(font: fontforge.font):
     nerd_font = fontforge.open(NERD_FILENAME)
     common.scale_em(nerd_font, EM_ASCENT, EM_DESCENT)
-    normalize_width(nerd_font, 1024, FONT_WIDTH / 2)
+    normalize_width(nerd_font, (EM_ASCENT + EM_DESCENT) // 2, FONT_WIDTH // 2)
 
     glyph_names = set()
     for nerd_glyph in nerd_font.glyphs():
@@ -411,7 +411,7 @@ def fix_font_tables(filename: str, for_bold: bool, for_italic: bool) -> None:
     xml = ET.parse(ttx_filename)
 
     # OS/2
-    xml.find('OS_2/xAvgCharWidth').set('value', str(round(FONT_WIDTH / 2)))
+    xml.find('OS_2/xAvgCharWidth').set('value', str(FONT_WIDTH // 2))
 
     # post
     xml.find('post/isFixedPitch').set('value', '1')
