@@ -302,6 +302,7 @@ def add_nerd_font_glyphs(font: fontforge.font):
     nerd_font.transform(psMat.translate(0, NERD_Y_OFFSET), ('noWidth',))
 
     common.merge_fonts(font, nerd_font)
+    nerd_font.close()
 
 
 def edit_meta_data(font: fontforge.font, for_bold: bool, for_italic: bool, version: str) -> None:
