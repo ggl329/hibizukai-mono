@@ -18,4 +18,4 @@ HibizukaiMono は UDEV Gothic をベースとして、次のような調整を�
 - BIZ UDゴシック由来の丸数字グリフを採用
 - JetBrains Mono 由来の '■□●○' (U+25A0, U+25A1, U+25CF, U+25CB) を、
   '◼◻⚫⚪' (U+25FC, U+25FB, U+26AB, U+26AA) にコピー
-- 半角文字の幅と高さの比を 1000:2048 に設定し、わずかに condensed 化
+- わずかに condensed 化
