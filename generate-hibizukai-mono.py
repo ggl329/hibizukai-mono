@@ -284,6 +284,11 @@ def normalize_width(font: fontforge.font, pre_halfwidth: int, post_halfwidth: in
 
 def add_nerd_font_glyphs(font: fontforge.font):
     nerd_font = fontforge.open(NERD_FILENAME)
+
+    # Nerd Font と重複するグリフを削除
+    font.selection.select(("ranges",), 0xE0A0, 0xE0B3)
+    font.clear()
+
     common.scale_em(nerd_font, EM_ASCENT, EM_DESCENT)
     normalize_width(nerd_font, (EM_ASCENT + EM_DESCENT) // 2, FONT_WIDTH // 2)
 
