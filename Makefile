@@ -1,5 +1,5 @@
 NAME=HibizukaiMono
-VERSION=1.2
+VERSION=1.3
 # BIZ UD Gothic 1.051
 # JetBrains Mono NL 2.304
 # Nerd Fonts 3.4.0
