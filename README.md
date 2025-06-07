@@ -18,4 +18,5 @@ HibizukaiMono は UDEV Gothic をベースとして、次のような調整を�
 - BIZ UDゴシック由来の丸数字グリフを採用
 - JetBrains Mono 由来の '■□●○' (U+25A0, U+25A1, U+25CF, U+25CB) を、
   '◼◻⚫⚪' (U+25FC, U+25FB, U+26AB, U+26AA) にコピー
+- JetBrains Mono の slash zero と eight.cv19 を採用
 - わずかに condensed 化
