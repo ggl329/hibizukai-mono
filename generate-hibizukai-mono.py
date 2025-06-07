@@ -127,12 +127,16 @@ def open_en_orig_font(for_bold: bool, for_italic: bool) -> fontforge.font:
     return font
 
 
+def copy_and_paste(font: fontforge.font, copy_from: str, paste_to: str) -> None:
+    font.selection.select(copy_from)
+    font.copy()
+    font.selection.select(paste_to)
+    font.clear()
+    font.paste()
+
+
 def enable_slash_zero(en_font: fontforge.font) -> None:
-    en_font.selection.select('zero.zero')
-    en_font.copy()
-    en_font.selection.select('zero')
-    en_font.clear()
-    en_font.paste()
+    copy_and_paste(en_font, 'zero.zero', 'zero')
 
 
 def clear_curly_bracket(en_font: fontforge.font) -> None:
@@ -144,27 +148,11 @@ def clear_curly_bracket(en_font: fontforge.font) -> None:
 
 def copy_medium_glyphs(en_font: fontforge.font) -> None:
     # ■□を BLACK/WHITE MEDIUM SQUARE にコピー
-    en_font.selection.select('U+25A0')
-    en_font.copy()
-    en_font.selection.select('U+25FC')
-    en_font.clear()
-    en_font.paste()
-    en_font.selection.select('U+25A1')
-    en_font.copy()
-    en_font.selection.select('U+25FB')
-    en_font.clear()
-    en_font.paste()
+    copy_and_paste(en_font, 'U+25A0', 'U+25FC')
+    copy_and_paste(en_font, 'U+25A1', 'U+25FB')
     # ●○を MEDIUM BLACK/WHITE CIRCLE にコピー
-    en_font.selection.select('U+25CF')
-    en_font.copy()
-    en_font.selection.select('U+26AB')
-    en_font.clear()
-    en_font.paste()
-    en_font.selection.select('U+25CB')
-    en_font.copy()
-    en_font.selection.select('U+26AA')
-    en_font.clear()
-    en_font.paste()
+    copy_and_paste(en_font, 'U+25CF', 'U+26AB')
+    copy_and_paste(en_font, 'U+25CB', 'U+26AA')
 
 
 def clear_jpdoc_symbols(font: fontforge.font) -> None:
