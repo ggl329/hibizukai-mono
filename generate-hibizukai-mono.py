@@ -76,6 +76,7 @@ def generate_font(for_bold: bool, for_italic: bool, version: str) -> None:
     common.scale_em(ja_font, EM_ASCENT, EM_DESCENT)
 
     enable_slash_zero(en_font)
+    enable_cv19_eight(en_font)
     clear_curly_bracket(en_font)
     copy_medium_glyphs(en_font)
     clear_jpdoc_symbols(en_font)
@@ -137,6 +138,10 @@ def copy_and_paste(font: fontforge.font, copy_from: str, paste_to: str) -> None:
 
 def enable_slash_zero(en_font: fontforge.font) -> None:
     copy_and_paste(en_font, 'zero.zero', 'zero')
+
+
+def enable_cv19_eight(en_font: fontforge.font) -> None:
+    copy_and_paste(en_font, 'eight.cv19', 'eight')
 
 
 def clear_curly_bracket(en_font: fontforge.font) -> None:
