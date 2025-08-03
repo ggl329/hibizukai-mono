@@ -15,7 +15,7 @@ regular bold italic bold-italic:
 package:
 	cp LICENSE $(NAME)/
 	rm -f $(NAME)-$(VERSION).7z
-	7za a -mx9 $(NAME)-$(VERSION).7z $(NAME)
+	7z a -mx9 $(NAME)-$(VERSION).7z $(NAME)
 
 .PHONY: clean
 clean:
