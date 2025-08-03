@@ -80,8 +80,8 @@ def generate_font(for_bold: bool, for_italic: bool, version: str) -> None:
     clear_curly_bracket(en_font)
     copy_medium_glyphs(en_font)
     clear_jpdoc_symbols(en_font)
-    clear_duplicate_circled_letter(en_font, ja_font)
-    clear_duplicate_glyphs(ja_font, en_font)
+    common.clear_duplicate_circled_letter(en_font, ja_font)
+    common.clear_duplicate_glyphs(ja_font, en_font)
     normalize_width(en_font, en_font[0x30].width, FONT_WIDTH // 2)
     normalize_width(ja_font, (EM_ASCENT + EM_DESCENT) // 2, FONT_WIDTH // 2, x_only=False)
 
@@ -243,26 +243,6 @@ def clear_jpdoc_symbols(font: fontforge.font) -> None:
     for glyph in font.selection.byGlyphs:
         if glyph.isWorthOutputting():
             glyph.clear()
-
-
-def clear_duplicate_circled_letter(font1: fontforge.font, font2: fontforge.font) -> None:
-    font1.selection.none()
-    font2.selection.none()
-    for glyph2 in font2.glyphs():
-        if (glyph2.isWorthOutputting()
-            and (0x2460 <= glyph2.unicode <= 0x24FF
-                 or 0x2776 <= glyph2.unicode <= 0x2793
-                 or 0x3251 <= glyph2.unicode <= 0x325F
-                 or 0x32B1 <= glyph2.unicode <= 0x32BF)):
-            font1.selection.select(('unicode',), glyph2.unicode)
-            font1.clear()
-
-
-def clear_duplicate_glyphs(font1: fontforge.font, font2: fontforge.font) -> None:
-    for glyph2 in font2.glyphs():
-        if glyph2.isWorthOutputting() and glyph2.unicode > 0:
-            font1.selection.select(('unicode',), glyph2.unicode)
-            font1.clear()
 
 
 def normalize_width(font: fontforge.font, pre_halfwidth: int, post_halfwidth: int, x_only: bool = True) -> None:

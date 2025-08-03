@@ -64,3 +64,23 @@ def select_worth_outputting(font: fontforge.font) -> None:
     for glyph in font.glyphs():
         if glyph.isWorthOutputting():
             font.selection.select(('more',), glyph)
+
+
+def clear_duplicate_circled_letter(font1: fontforge.font, font2: fontforge.font) -> None:
+    font1.selection.none()
+    font2.selection.none()
+    for glyph2 in font2.glyphs():
+        if (glyph2.isWorthOutputting()
+            and (0x2460 <= glyph2.unicode <= 0x24FF
+                 or 0x2776 <= glyph2.unicode <= 0x2793
+                 or 0x3251 <= glyph2.unicode <= 0x325F
+                 or 0x32B1 <= glyph2.unicode <= 0x32BF)):
+            font1.selection.select(('unicode',), glyph2.unicode)
+            font1.clear()
+
+
+def clear_duplicate_glyphs(font1: fontforge.font, font2: fontforge.font) -> None:
+    for glyph2 in font2.glyphs():
+        if glyph2.isWorthOutputting() and glyph2.unicode > 0:
+            font1.selection.select(('unicode',), glyph2.unicode)
+            font1.clear()
