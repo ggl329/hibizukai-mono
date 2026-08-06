@@ -1,8 +1,8 @@
 NAME=HibizukaiMono
-VERSION=1.4
+VERSION=1.5
 # BIZ UD Gothic 1.051
 # JetBrains Mono NL 2.304
-# Nerd Fonts 3.4.0
+# Nerd Fonts 3.5.0
 
 .PHONY: all
 all: regular bold italic bold-italic
